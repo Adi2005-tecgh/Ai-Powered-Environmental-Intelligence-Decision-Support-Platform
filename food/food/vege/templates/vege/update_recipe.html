@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Manager</title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+            font-family: 'Arial', sans-serif;
+        }
+
+        h3 {
+            font-weight: 600;
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        /* Form Styling */
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease-in-out;
+            background-color: #ffffff;
+            width: 100%; /* Ensure consistency */
+            max-width: 600px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .form-control, .form-control-file {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+        }
+
+        button.btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 8px;
+            padding: 10px 20px;
+            transition: background-color 0.2s ease;
+            width: 100%; /* Full-width button */
+        }
+
+        button.btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        /* Table Styling */
+        .table {
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            width: 100%; /* Ensure consistency */
+            max-width: 800px;
+        }
+
+        thead.thead-dark th {
+            background-color: #343a40;
+            color: #ffffff;
+            border: none;
+            text-align: center;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+            transition: background-color 0.2s ease;
+        }
+
+        td, th {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        img.img-thumbnail {
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        /* Delete Button Styling */
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            transition: background-color 0.2s ease;
+            padding: 6px 12px;
+            border-radius: 8px;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+    </style>
+</head>
+<body>
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="w-100">
+        <div class="container">
+            {% block content %}
+
+<!-- Form Card -->
+<div class="card shadow-sm mx-auto">
+    <div class="card-body">
+        <h3 class="card-title mb-4">UPDATE Recipe</h3>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="recipeName">Recipe Name</label>
+                <input type="text" class="form-control" id="recipeName" name="recipe_name" value="{{ recipe.recipe_name }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="recipeDescription">Description</label>
+                <textarea class="form-control" id="recipeDescription" name="recipe_desp" rows="3" required>{{ recipe.recipe_desp }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="recipeImage">Image</label>
+                <input type="file" class="form-control-file" id="recipeImage" name="recipe_image" accept="image/*">
+                {% if recipe.recipe_image %}
+                    <img src="{{ recipe.recipe_image.url }}" alt="Recipe Image" class="img-thumbnail mt-2" width="100" height="100">
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update Recipe</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %} <!-- ✅ Closing the block -->
+
+
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

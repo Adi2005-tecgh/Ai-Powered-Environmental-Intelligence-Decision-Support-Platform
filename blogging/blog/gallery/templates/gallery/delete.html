@@ -1,0 +1,6 @@
+<h2>DELETE BLOG</h2>
+<p>ARE U SURE U WANT TO DELETE "{{product.name}}"</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">YES DELETE</button>
+</form>
